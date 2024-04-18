@@ -1,0 +1,91 @@
+<% layout("/layout/boilerplate") %>
+<style>
+  #filters{
+    margin: 2rem 2rem;
+    padding: 0rem 1rem;
+    
+  }
+  .welcome{
+    border:2px solid black;
+    background-color: #F0F0F0;
+    margin: 0rem 2rem;
+    padding: 0.2rem 1rem;
+    display: flex;
+  }
+  .icon{
+    padding-top: 0.7rem;
+    padding-right: 0.25rem;
+  }
+  .welcome:hover{
+    
+    cursor: pointer;
+    color: #fe424d;
+    transform: translateY(-3px);
+  }
+ 
+</style>
+
+<body>
+  <div id="filters">
+    <div class="welcome">
+      <i class="fa-solid fa-door-open icon"></i>
+      <p style="padding-top:0.5rem">Welcome</p>
+       
+    </div>
+  
+      <div class="welcome">
+        <i class="fa-solid fa-hotel icon"></i>
+        <p style="padding-top:0.5rem">Share Your Room</p>
+         
+    </div>
+    
+    <a href="/listings/new">
+      <div class="welcome">
+        
+        <i class="fa-solid fa-house icon"></i>
+        <p style="padding-top:0.5rem">Rent a Room</p>
+      </div>
+
+    </a>
+      
+      <div class="welcome">
+        <i class="fa-solid fa-helmet-safety icon"></i>
+        <p style="padding-top:0.5rem">Safety</p>
+      </div>
+      <div class="welcome">
+        <i class="fa-solid fa-house icon"></i>
+        <p style="padding-top:0.5rem">Adventue</p>
+      </div>
+      <div class="welcome">
+        <i class="fa-solid fa-house icon"></i>
+        <p style="padding-top:0.5rem">Community</p>
+      </div>
+
+   
+
+  </div>
+  
+  
+
+<div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-3">
+            
+  <% for(let listing of allListings) { %>
+      <a href="/listings/<%= listing._id%>" class="listing-link" >
+          <div class="card" style="width: 20rem;">
+              <img src="<%= listing.image.url %>" class="card-img-top" alt="..." style="height:20rem">
+              <div class="card-img-overlay"></div>
+              <div class="card-body">
+                <p class="card-text">
+                  <b><%= listing.title %></b> <br/>
+                  &#8377; <%= listing.price %>
+                  <i class="tax-info"> &nbsp; &nbsp;+18% GST </i>
+              </p>
+              </div>
+            </div>
+      </a>
+     
+      <%}%>
+</div> 
+    
+</body>
+
