@@ -33,6 +33,7 @@ main()
     maxDate: Date,
     location: String,
     country: String,
+    amenities: [String],
     reviews:[
       {
       type:Schema.Types.ObjectId,

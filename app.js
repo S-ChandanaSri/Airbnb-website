@@ -19,9 +19,12 @@ const User = require("./models/user.js");
 const session = require("express-session");
 const userRouter = require("./routes/user.js");
 const flash = require("connect-flash");
+const cors = require('cors');
 const reviews = require("./routes/review.js")
 const app = express();
-const listings = require("./routes/listing.js")
+const listings = require("./routes/listing.js");
+
+ 
 
 // Middleware setup
 
@@ -29,7 +32,7 @@ const bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
+app.use(cors());
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/airbnb";
 
@@ -111,6 +114,9 @@ app.get("/listing", async (req, res) => {
   app.get("/listings/new",(req,res)=>{
     res.render("new.ejs");
   })
+  app.get("/listing/findhome",(req,res)=>{
+    res.render("findhome.ejs");
+  })
 
   app.get("/listings/:id",async(req,res)=>{
     let  {id}=req.params;
@@ -121,10 +127,7 @@ app.get("/listing", async (req, res) => {
 
   app.post("/listings",async (req,res,next)=>{
     const newListing=new Listing(req.body.listing);
-    await newListing.
-    
-    
-    save();
+    await newListing.save();
     console.log("newdata",newListing)
      res.redirect("/listing"); 
     });
@@ -148,6 +151,33 @@ app.get("/listing", async (req, res) => {
     console.log(deletedListing)
     res.redirect("/listing");
   });
+  
+  
+
+
+  app.get('/listings/findbylocation', async (req, res) => {
+    const location = req.query.location;
+
+    try {
+        // Find listings matching the provided location
+        const listings = await Listing.find({ location: location });
+
+        // Render the view with the retrieved listings
+        res.render('searchResults', { listings, location });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error retrieving listings');
+    }
+});
+
+
+
+
+
+
+
+
+
 
     
 

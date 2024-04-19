@@ -20,6 +20,11 @@
         
                 </div>
                 <div class="mb-3">
+                    <label for="amenities" class="form-label">amenities</label>
+                    <input name="listing[amenities]" placeholder="amenities" class="form-control" type="text" required>
+                    <div class="invalid-feedback">please enter amenities</div>
+                </div>
+                <div class="mb-3">
                     <label for="price" class="form-label">price</label>
                     <input name="listing[price]" placeholder="price" class="form-control" type="number" required>
                     <div class="invalid-feedback">please enter price</div>
@@ -28,8 +33,8 @@
                     <label for="gender" class="form-label">Gender</label>
                     <select id="gender" name="listing[gender]" class="form-select" required>
                         <option value="" disabled selected>Select gender</option>
-                        <option value="female">&#9792; Female</option> <!-- Female emoji -->
-                        <option value="male">&#9794; Male</option>     <!-- Male emoji -->
+                        <option value="female">&#9792; Female</option> 
+                        <option value="male">&#9794; Male</option>     
                     </select>
                     <div class="invalid-feedback">Please select a gender</div>
                 </div>

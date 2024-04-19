@@ -12,12 +12,18 @@
             <p class="card-text"><%= allChatt.description %></p>
         
             <p class="card-text">&#8377; <%= allChatt.price.toLocaleString("en-IN")%></p>
-            <p class="card-text">Available from: <%= allChatt.minDate.toLocaleDateString() %> to <%= allChatt.maxDate.toLocaleDateString() %></p>
-
-
+            <p class="card-text">Available<br> From: <%= allChatt.minDate %><br> To: <%= allChatt.maxDate %></p>
+            <p class="card-text">Amenities:</p>
+            <ul class="list-unstyled">
+                <% allChatt.amenities.forEach(function(amenity) { %>
+                    <li><%= amenity %></li>
+                <% }); %>
+            </ul>
+            
             <p class="card-text"><%= allChatt.location %></p>  
                 <p class="card-text"><%= allChatt.country %></p> 
 
+                
         </div>
 
     </div>

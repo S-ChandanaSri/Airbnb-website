@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Listings</title>
+</head>
+<body>
+  <h1>Listings near <%= location %></h1>
+  <ul>
+    <% listings.forEach(listing => { %>
+      <li><%= listing.name %> - <%= listing.location %></li>
+    <% }) %>
+  </ul>
+</body>
+</html>
