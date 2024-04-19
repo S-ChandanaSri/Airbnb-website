@@ -4,6 +4,10 @@ if(process.env.NODE_ENV != "production"){
 
 
 const express = require("express");
+const app = express();
+process.on('uncaughtException', function (err) {
+  console.log(err);
+});
 const path = require("path");
 const mongoose = require('mongoose');
 const router = express.Router();
@@ -21,7 +25,7 @@ const userRouter = require("./routes/user.js");
 const flash = require("connect-flash");
 const cors = require('cors');
 const reviews = require("./routes/review.js")
-const app = express();
+
 const listings = require("./routes/listing.js");
 
  
@@ -97,6 +101,8 @@ main()
     console.log('Server is listening on port ');
 });
 
+
+
 app.get("/", (req, res) => {
     res.send("hi");
 });
@@ -154,21 +160,20 @@ app.get("/listing", async (req, res) => {
   
   
 
-
-  app.get('/listings/findbylocation', async (req, res) => {
-    const location = req.query.location;
+  app.post('/search-listings', async (req, res) => {
+    const { location } = req.body;
 
     try {
-        // Find listings matching the provided location
+        // Search for listings in the database based on the entered location
         const listings = await Listing.find({ location: location });
 
-        // Render the view with the retrieved listings
-        res.render('searchResults', { listings, location });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error retrieving listings');
+        res.json(listings);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
+ 
+
 
 
 

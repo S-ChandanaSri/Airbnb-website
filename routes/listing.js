@@ -81,4 +81,7 @@ router.get("/",  async(req, res) => {
     res.redirect("/listing");
   });
   
+// Other routes...
+
+  
 module.exports = router;

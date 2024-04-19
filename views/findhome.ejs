@@ -1,45 +1,44 @@
-<% layout("/layout/boilerplate") %>
-<head>
-    <!-- Other meta tags, stylesheets, and scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-
-<body>
-    <form id="listingForm" class="needs-validation">
-        <div class="row">
-            <div class="col-8 offset-2">
-                <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <input name="location" id="locationInput" placeholder="Enter location" class="form-control" type="text" required>
-                    <div class="invalid-feedback">Please enter a location</div>
-                </div>
-                <br>
-                <button id="submitBtn" type="submit" class="btn btn-primary">Find my Home</button>
+<form id="listingForm" class="needs-validation">
+    <div class="row">
+        <div class="col-8 offset-2">
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input name="location" id="locationInput" placeholder="Enter location" class="form-control" type="text" required>
+                <div class="invalid-feedback">Please enter a location</div>
             </div>
+            <br>
+            <button id="submitBtn" type="submit" class="btn btn-primary">Find my Home</button>
         </div>
-    </form>
+    </div>
+</form>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('listingForm');
-        const locationInput = document.getElementById('locationInput');
+   // Frontend
 
-        form.addEventListener('submit', async function (event) {
-            event.preventDefault();
+document.getElementById('listingForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-            const location = locationInput.value;
+    const location = document.getElementById('locationInput').value;
 
-            try {
-                const response = await axios.get(`http://localhost:8080/listings/findbylocation?location=${location}`);
-                const data = response.data;
-                console.log(data); 
-            } catch (error) {
-                console.error(error);
-            }
+    try {
+        const response = await fetch('/search-listings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ location })
         });
-    });
-</script>
 
-</body>
-</html>
+        if (response.ok) {
+            const listings = await response.json();
+            console.log('Related Listings:', listings);
+            // Display the listings on the webpage
+        } else {
+            console.error('Failed to fetch listings');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+</script>
