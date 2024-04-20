@@ -1,0 +1,45 @@
+<% layout("/layout/boilerplate") %> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        .room-details {
+    width: 20rem; 
+    border: 2px solid white;
+    padding: 2px 5px;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.5);
+  }
+  a {
+    text-decoration: none;
+    color: black;
+    
+  }
+    </style>
+</head>
+<body>
+    <h1>User Bookings</h1>
+    <div style="display: flex;gap: 30px;">
+        <% userBookings.forEach((booking) => { %>
+            <div class="card room-details" >
+                <img src="<%= booking.listingId.image.url %>" alt="Listing Image">
+                <div class="card-img-overlay"></div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%= booking.listingId.title %></b>
+
+                    </p>
+                </div>
+
+
+            </div>
+            
+        <% }); %>
+
+    </div>
+
+   
+        
+
+</body>
+

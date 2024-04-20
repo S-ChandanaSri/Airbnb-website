@@ -1,46 +1,50 @@
 <% layout("/layout/boilerplate") %>
-<div class="row">
-    <div class="col-8 offset-2">
-        <b style="font-size: 2rem;"> <%= allChatt.title %> </b> <br>
-
-    </div>
-
-    <div class="card col-6 offset-2 show-card listing-card">
-        <img src="<%= allChatt.image.url %>" class="card-img-top" alt="listing_image" >
-        <div class="card-body">
-           
-            <p class="card-text"><%= allChatt.description %></p>
-        
-            <p class="card-text">&#8377; <%= allChatt.price.toLocaleString("en-IN")%></p>
-            <p class="card-text">Available<br> From: <%= allChatt.minDate %><br> To: <%= allChatt.maxDate %></p>
-            <p class="card-text">Amenities:</p>
-            <ul class="list-unstyled">
-                <% allChatt.amenities.forEach(function(amenity) { %>
-                    <li><%= amenity %></li>
-                <% }); %>
-            </ul>
-            
-            <p class="card-text"><%= allChatt.location %></p>  
-                <p class="card-text"><%= allChatt.country %></p> 
-
-                
+<div class="listing-parent">
+    <div class="row listing-container">
+        <div style="text-align: center;">
+            <b style="font-size: rem;"> <%= allChatt.title %> </b> <br>    
         </div>
+    
+        <div class="card  show-card listing-card" style="background-color: white;">
+            <img src="<%= allChatt.image.url %>" class="card-img-top" alt="listing_image" >
+            <div class="card-body">
+                
 
+                <p class="card-text">Owned by <i><%= allChatt.owner.username %></i></p>
+
+                <p class="card-text"><%= allChatt.description %></p>
+            
+                <p class="card-text room-price">&#8377; <%= allChatt.price.toLocaleString("en-IN")%></p>
+                <p class="card-text room-location">Available<br> From: <%= allChatt.minDate %><br> To: <%= allChatt.maxDate %></p>
+                <p class="card-text room-location">Amenities:</p>
+                <ul class="list-unstyled">
+                    <% allChatt.amenities.forEach(function(amenity) { %>
+                        <li><%= amenity %></li>
+                    <% }); %>
+                </ul>
+                
+                <p class="card-text room-location"><%= allChatt.location %></p>  
+                    <p class="card-text room-location"><%= allChatt.country %></p> 
+    
+                    
+            </div>
+    
+        </div>
+    
+    </div>
+    
+    
+    <div class="btns">
+    
+        <a href="/listings/<%=allChatt._id%>/edit" class="btn btn-dark action-btn">
+            Edit
+        </a>
+    
+        <form method="POST" action="/listings/<%=allChatt._id%>?_method=DELETE">
+            <button class="btn btn-dark action-btn">Delete</button>
+    
+        </form>
+        <hr /> 
     </div>
 
 </div>
-
-
-<div class="btns">
-
-    <a href="/listings/<%=allChatt._id%>/edit" class="btn btn-dark col-1 offset-2 edit-btn">
-        Edit
-    </a>
-
-    <form method="POST" action="/listings/<%=allChatt._id%>?_method=DELETE">
-        <button class="btn btn-dark offset-4">Delete</button>
-
-    </form>
-    <hr /> 
-</div>
-

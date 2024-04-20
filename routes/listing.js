@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const {listingSchema,reviewSchema} = require("../schema.js");
-//const ExpressError=require("./utils/ExpressError.js");
 const Review = require("../models/review.js");
 const Listing=require("../models/listing.js");
 const {isLoggedIn, isOwner} = require("../middleware.js");
@@ -25,11 +24,13 @@ router.get("/",  async(req, res) => {
     res.render("new.ejs");
   })
   
+  router.get("/findhome", isLoggedIn,(req, res) => {
+    res.render("findhome.ejs");
+});
+
   
   
   
-  
-  /*showroute*/
   router.get("/:id",async(req,res)=>{
    let  {id}=req.params;
    const allChatt=await Listing.findById(id)
@@ -50,7 +51,6 @@ router.get("/",  async(req, res) => {
   router.post("/",isLoggedIn, upload.single('listing[image]'), async (req,res,next)=>{
     let url = req.file.path;
     let filename = req.file.filename;
-    //console.log(url, "..", filename);
     const newListing=new Listing(req.body.listing);
     newListing.owner = req.user._id;
     newListing.image = { url, filename};
@@ -59,7 +59,7 @@ router.get("/",  async(req, res) => {
      res.redirect("/listing"); 
     });
   
-    /*edit*/
+
     router.get("/:id/edit",isLoggedIn,isOwner,async(req,res)=>{
       let  {id}=req.params;
       const all=await Listing.findById(id);
@@ -81,7 +81,34 @@ router.get("/",  async(req, res) => {
     res.redirect("/listing");
   });
   
-// Other routes...
+  
 
+  router.post('/search-listings', isLoggedIn,async (req, res) => {
+    const { location } = req.body;
+  
+    try {
+      
+        const listings = await Listing.find({ location: location });
+        res.render("searchResults.ejs", { listings: listings });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+  
+
+router.get('/bookingslist',isLoggedIn ,async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const userBookings = await Booking.find({ userId: userId }).populate('listingId');
+
+    res.json(userBookings);
+  } catch (error) {
+    console.error('Error retrieving bookings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+  
   
 module.exports = router;

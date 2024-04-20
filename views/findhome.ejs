@@ -1,3 +1,6 @@
+<% layout("/layout/boilerplate") %>
+
+
 <form id="listingForm" class="needs-validation">
     <div class="row">
         <div class="col-8 offset-2">
@@ -6,39 +9,64 @@
                 <input name="location" id="locationInput" placeholder="Enter location" class="form-control" type="text" required>
                 <div class="invalid-feedback">Please enter a location</div>
             </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select id="gender" name="listing[gender]" class="form-select" required>
+                    <option value="" disabled selected>Select gender</option>
+                    <option value="female">&#9792; Female</option> 
+                    <option value="male">&#9794; Male</option>     
+                </select>
+                <div class="invalid-feedback">Please select a gender</div>
+            </div>
             <br>
             <button id="submitBtn" type="submit" class="btn btn-primary">Find my Home</button>
         </div>
     </div>
 </form>
-
 <script>
-   // Frontend
+    
 
-document.getElementById('listingForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
 
-    const location = document.getElementById('locationInput').value;
+    
+document.addEventListener('DOMContentLoaded', function() {
+    
+    document.getElementById('listingForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
 
-    try {
-        const response = await fetch('/search-listings', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ location })
-        });
+        
+        const location = document.getElementById('locationInput').value;
 
-        if (response.ok) {
-            const listings = await response.json();
-            console.log('Related Listings:', listings);
-            // Display the listings on the webpage
-        } else {
-            console.error('Failed to fetch listings');
+        try {
+            
+
+            
+            const response = await fetch('/listings/search-listings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ location })
+            });
+
+            if (response.ok) {
+                const listings = await response.text(); 
+                document.body.innerHTML = listings;
+            } else {
+                console.error('Failed to fetch listings');
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
-    } catch (error) {
-        console.error('Error:', error);
-    }
+    });
 });
-
+document.getElementById("listingForm").addEventListener("submit", function(event) {
+        var selectedGender = document.getElementById("gender").value;
+        if (selectedGender !== "female") {
+            event.preventDefault();
+            alert("Only females are allowed"); 
+            window.location.replace("/listings/findhome");
+            
+        }
+    });
+    
 </script>

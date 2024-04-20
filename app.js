@@ -14,9 +14,8 @@ const router = express.Router();
 const ejsMate = require("ejs-mate");
 const Listing = require("./models/listing.js");
 const methodOverride = require('method-override')
-const Review=require("./models/review.js");
 const ExpressError=require("./utils/ExpressError.js");
-const {listingSchema,reviewSchema} = require("./schema.js");
+const {listingSchema} = require("./schema.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
@@ -24,15 +23,15 @@ const session = require("express-session");
 const userRouter = require("./routes/user.js");
 const flash = require("connect-flash");
 const cors = require('cors');
-const reviews = require("./routes/review.js")
 
 const listings = require("./routes/listing.js");
 
- 
+const Booking = require('./models/booking');
 
 // Middleware setup
 
 const bodyParser = require("body-parser");
+const { isOwner } = require('./middleware.js');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -49,7 +48,6 @@ main()
   });
 
   async function main() {
-    // Connect to MongoDB
     await mongoose.connect(MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -91,8 +89,10 @@ main()
   });
   app.use("/",userRouter);
   app.use("/listings",listings);
-  app.use("/listings/:id/reviews",reviews);
-  
+  app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
   passport.use(new LocalStrategy(User.authenticate()));
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
@@ -120,13 +120,13 @@ app.get("/listing", async (req, res) => {
   app.get("/listings/new",(req,res)=>{
     res.render("new.ejs");
   })
-  app.get("/listing/findhome",(req,res)=>{
+  app.get("/listings/findhome",(req,res)=>{
     res.render("findhome.ejs");
   })
 
   app.get("/listings/:id",async(req,res)=>{
     let  {id}=req.params;
-    const allChatt=await Listing.findById(id).populate("reviews");
+    const allChatt=await Listing.findById(id).populate("owner");
    res.render("show.ejs",{allChatt});
    
    });
@@ -160,22 +160,76 @@ app.get("/listing", async (req, res) => {
   
   
 
-  app.post('/search-listings', async (req, res) => {
-    const { location } = req.body;
-
-    try {
-        // Search for listings in the database based on the entered location
-        const listings = await Listing.find({ location: location });
-
-        res.json(listings);
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error' });
-    }
+  
+app.post('listings/search-listings', async (req, res) => {
+  const { location } = req.body;
+  
+  
+  try {
+    
+      const listings = await Listing.find({ location: location }).populate("owner");
+      
+      res.render("searchResults.ejs", { listings: listings });
+      
+  } catch (error) {
+      res.status(500).json({ message: 'Internal server error' });
+  }
 });
- 
+app.post('/book', async (req, res) => {
+  const { listingId } = req.body;
+
+  try {
+    // Verify the listing and populate the 'owner' field
+    const listing = await Listing.findById(listingId).populate('owner');
+
+    if (!listing) {
+      return res.status(404).send("Listing not found");
+    }
+
+    // Extract owner details from the populated 'owner' field
+    const owner = listing.owner;
+    console.log("ss",owner)
+
+    // Create a new booking
+    const booking = new Booking({
+      listingId: listing._id,
+      userId: req.user._id,
+      ownerId: owner._id 
+    });
+
+    await booking.save();
+
+    const ownerBookings = await Booking.find({ ownerId: owner._id }).populate('listingId');
+
+    //res.json(ownerBookings)
+    res.render("ownerBookings", { owner, ownerBookings });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 
 
 
+
+
+
+app.get('/bookingslist', async (req, res) => {
+  try {
+    const userId = req.user._id;
+    console.log("h",userId)
+
+    const userBookings = await Booking.find({ ownerId: userId }).populate('listingId');
+
+    //res.json(userBookings);
+       res.render('results', { userBookings: userBookings });
+
+  } catch (error) {
+    console.error('Error retrieving bookings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 

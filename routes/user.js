@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/user.js");
 const flash = require("express-flash");
 const passport = require("passport");
-
+const { isLoggedIn } = require("../middleware.js");
 
 
 router.get("/signup",(req,res)=>{
@@ -22,7 +22,7 @@ router.post("/signup", async (req, res) => {
 
             }
 
-            req.flash("success", "Welcome to Wanderlust!");
+            req.flash("success", "Welcome to airbnb!");
         res.redirect("/listing");
         })
         
@@ -40,7 +40,7 @@ router.post("/login", async (req, res) => {
     passport.authenticate("local", { failureRedirect: "/login", failureFlash: true })(req, res, async () => {
         try {
             if (req.user) {
-                req.flash("success", "Welcome to Wanderlust! You are logged in!");
+                req.flash("success", "Welcome to airbnb! You are logged in!");
                 res.redirect("/listing");
             } else {
                 req.flash("error", "Invalid username or password.");

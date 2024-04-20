@@ -1,16 +1,35 @@
-<% layout("/layout/boilerplate") %>
+<% layout("/layout/boilerplate") %> 
 <style>
   #filters{
-    margin: 2rem 2rem;
-    padding: 0rem 1rem;
+    margin: 2rem 1rem;
+    padding: 0rem 0.5rem;
+    display: flex;
+    gap: 10px;
+    width: 100%;
     
   }
   .welcome{
-    border:2px solid black;
-    background-color: #F0F0F0;
-    margin: 0rem 2rem;
-    padding: 0.2rem 1rem;
+    border:2px solid ;
+    background-color: #ef476f;
+    border-radius: 5px;
+    padding: 0.3rem 1.5rem;
     display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 18px;
+    transition: 0.2s ease-in;
+    box-shadow: 2px 3px 8px rgba(0,0,0,0.5);
+  }
+  .room-details {
+    width: 20rem; 
+    border: 2px solid white;
+    padding: 2px 5px;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.5);
+  }
+  a {
+    text-decoration: none;
+    color: black;
   }
   .icon{
     padding-top: 0.7rem;
@@ -19,8 +38,14 @@
   .welcome:hover{
     
     cursor: pointer;
-    color: #fe424d;
-    transform: translateY(-3px);
+    transform: scale(1.08);
+  }
+  .welcome p, .welcome i {
+    color: white;
+  }
+
+  .welcome p {
+    font-weight: 400;
   }
  
 </style>
@@ -33,7 +58,7 @@
        
     </div>
   
-    <a href="/listing/findhome">
+    <a href="/listings/findhome">
       <div class="welcome">
         <i class="fa-solid fa-hotel icon"></i>
         <p style="padding-top:0.5rem">Find A Room</p>
@@ -57,13 +82,21 @@
         <p style="padding-top:0.5rem">Safety</p>
       </div>
       <div class="welcome">
-        <i class="fa-solid fa-house icon"></i>
+        <i class="fa-solid fa-person-skating"></i>
         <p style="padding-top:0.5rem">Adventue</p>
       </div>
       <div class="welcome">
-        <i class="fa-solid fa-house icon"></i>
+        <i class="fa-solid fa-people-group"></i>
         <p style="padding-top:0.5rem">Community</p>
       </div>
+      <a href="/bookingslist" id="bookingsLink">
+        <div class="welcome">
+          <i class="fa-solid fa-people-group"></i>
+          <p style="padding-top:0.5rem">Bookings</p>
+        </div>
+
+      </a>
+      
 
    
 
@@ -75,7 +108,7 @@
             
   <% for(let listing of allListings) { %>
       <a href="/listings/<%= listing._id%>" class="listing-link" >
-          <div class="card" style="width: 20rem;">
+          <div class="card room-details">
               <img src="<%= listing.image.url %>" class="card-img-top" alt="..." style="height:20rem">
               <div class="card-img-overlay"></div>
               <div class="card-body">
@@ -90,6 +123,9 @@
      
       <%}%>
 </div> 
-    
+
+
 </body>
+
+    
 

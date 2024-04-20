@@ -1,14 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Listings</title>
-</head>
+<% layout("/layout/boilerplate") %>
 <body>
-  <h1>Listings near <%= location %></h1>
-  <ul>
-    <% listings.forEach(listing => { %>
-      <li><%= listing.name %> - <%= listing.location %></li>
-    <% }) %>
-  </ul>
+    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-3">
+        <% if (listings && listings.length > 0) { %>
+            <% listings.forEach((listing) => { %>
+                <div class="card" style="width: 20rem;margin: 1rem 2rem;">
+                    <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image" style="height: 20rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" ><%= listing.title %></h5>
+                        <p class="card-text">&#8377; <%= (listing.price) %></p>
+                        <p class="card-text"><%=listing.amenities%></p>
+                        <p class="card-text room-location">Available<br> From: <%= listing.minDate %><br> To: <%= listing.maxDate %></p>
+                    </div>
+                    <div class="card-footer" >
+                        <small style="margin-left: 4rem;" class="text-muted">Location: <%= listing.location %></small>
+                    </div>
+
+                    <form action="/book" method="POST">
+                        <input type="hidden" name="listingId" value="<%= listing._id %>">
+                        <button type="submit" class="btn btn-primary" style="margin-left: 5rem;margin-bottom: 1rem;">BOOK THIS</button>
+                    </form>
+                </div>
+                
+            <% }); %>
+        <% } else { %>
+            <p>No listings found for the entered location.</p>
+        <% } %>
+    </div>
 </body>
 </html>

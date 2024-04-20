@@ -3,7 +3,7 @@ const Listing = require("./models/listing");
 module.exports.isLoggedIn = (req,res,next) => {
     console.log("done",req.user);
     if(!req.isAuthenticated()){
-        req.flash("error", "you must be logged in to create listing");
+        req.flash("error", "you must be loggedin ");
         return res.redirect("/login");
     }
     next();

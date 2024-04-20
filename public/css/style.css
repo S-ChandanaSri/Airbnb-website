@@ -1,5 +1,9 @@
+* {
+    font-family: Roboto, Arial, sans-serif;
+}
+
 body{
-    background-color: aqua;
+    background-color: #034078 !important;
 }
 .navbar{
     height:5rem;
@@ -20,6 +24,7 @@ body{
      height: 40px; 
      background-position: -60px 0px; 
 }
+
 #filters{
     display: flex;
     flex-wrap: wrap;
@@ -36,6 +41,19 @@ body{
     cursor: pointer;
 }
 
+.listing-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 2px solid;
+    padding:5px 15px;
+    width: 40%;
+    border-radius: 5px;
+    box-shadow: 2px 3px 10px rgba(0,0,0,0.5);
+}
+
 .card{
     border: none;
     margin-bottom: 2rem;
@@ -45,6 +63,7 @@ body{
     border-radius: 1rem;
     width: 100%;
     object-fit: cover;
+    margin-top: 10px;
 }
 .card-body{
     padding: 0;
@@ -57,6 +76,17 @@ body{
     text-decoration: none;
 }
 
+.listing-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.card-img-overlay{
+    opacity: 0;
+
+}
 .card-img-overlay{
     opacity: 0;
 
@@ -70,17 +100,106 @@ body{
 }
 .btns{
     display: flex;
+    gap: 15px;
+    margin-top: 15px;
 }
 .show-card{
     padding-left: 0;
     padding-right: 0;
 }
+
 .listing-card{
     border: none !important;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
+    background-color: white;
+    padding: 0 !important;
 }
 
 .add-btn{
     background-color: #fe424d !important;
     border: none !important;
+}
+
+.room-price {
+    font-size: 1.8em;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.room-available {
+    color: #388e3c;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+.room-location {
+    font-size: 1.125em;
+    font-weight: 500;
+}
+
+.room-dates {
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.action-btn {
+    font-size: 1.1em !important;
+    padding: 5px 30px !important;
+}
+
+
+.edit-btn{
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+
+
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+.f-info-links a :hover{
+    text-decoration: underline;
+    
+}
+
+.f-info-links{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.f-info-socials, .f-info-brand{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info{
+    height:4rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-items: space-evenly;
+    text-align: center;
+   
+    bottom: 0;
+    width: 100%;
+}
+
+
+.f-info-socials i{
+    font-size: 1.2rem;
+    margin-right: 0.8rem;
+}
+
+.metho{
+    padding-bottom: 12.5rem;
+}
+
+.netho{
+    padding-bottom: 16.5rem;
 }

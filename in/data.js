@@ -8,7 +8,10 @@ const sampleListings = [
      url: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
       },
       price: 1500,
-      location: "Malibu",
+      minDate:"2022",
+      maxDate:"2023",
+      Amenities:["Swimmingpool", "Elevator", "CCTV"],
+      location: "Mumbai",
       country: "United States",
     },
     {
@@ -20,7 +23,10 @@ const sampleListings = [
         url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
       },
       price: 1200,
-      location: "New York City",
+      minDate:"2022",
+      maxDate:"2022",
+      Amenities:["Swimmingpool", "Elevator", "CCTV"],
+      location: "Hyderabad",
       country: "United States",
     },
     {
@@ -31,8 +37,11 @@ const sampleListings = [
       url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
       },
       price: 1000,
-      location: "Aspen",
-      country: "United States",
+      minDate:"2022",
+      maxDate:"2024",
+      Amenities:["Swimmingpool", "Elevator", "CCTV"],
+      location: "Hyderabad",
+      country: "India",
     },
     {
       title: "Historic Villa in Tuscany",
@@ -43,32 +52,13 @@ const sampleListings = [
     },
       
       price: 2500,
+      minDate:"2022",
+      maxDate:"2024",
+      Amenities:["Swimmingpool", "Elevator", "CCTV"],
       location: "Florence",
       country: "Italy",
     },
-    {
-      title: "Secluded Treehouse Getaway",
-      description:
-        "Live among the treetops in this unique treehouse retreat. A true nature lover's paradise.",
-      image: {
- 
-      url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
-    },
-      price: 800,
-      location: "Portland",
-      country: "United States",
-    },
-    {
-      title: "Beachfront Paradise",
-      description:
-        "Step out of your door onto the sandy beach. This beachfront condo offers the ultimate relaxation.",
-      image: {
-     
-      url:  "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
-    },
-      price: 2000,
-      location: "Cancun",
-      country: "Mexico",
-    },
+    
+    
 ]
 module.exports = { data:sampleListings };
