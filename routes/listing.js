@@ -97,18 +97,7 @@ router.get("/",  async(req, res) => {
 
   
 
-router.get('/bookingslist',isLoggedIn ,async (req, res) => {
-  try {
-    const userId = req.user._id;
 
-    const userBookings = await Booking.find({ userId: userId }).populate('listingId');
-
-    res.json(userBookings);
-  } catch (error) {
-    console.error('Error retrieving bookings:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
   
   
 module.exports = router;

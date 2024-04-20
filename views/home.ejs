@@ -47,6 +47,15 @@
   .welcome p {
     font-weight: 400;
   }
+  .tax-info{
+        display: none;
+    }
+    .tax-toggle{
+        border-radius: 1rem;
+        height: 3.5rem;
+        padding: 1rem;
+        margin-left: 5rem;
+    }
  
 </style>
 
@@ -101,6 +110,12 @@
    
 
   </div>
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault" style="color: wheat;">Display total after taxes</label>
+      </div>
+</div>
   
   
 
@@ -127,5 +142,17 @@
 
 </body>
 
-    
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click",() => {
+      let taxInfo = document.getElementsByClassName("tax-info");
+      for(info of taxInfo){
+          if(info.style.display != "inline"){
+              info.style.display = "inline";
+          }else{
+              info.style.display = "none";
+          }
+      }
+  })
+</script>
 
