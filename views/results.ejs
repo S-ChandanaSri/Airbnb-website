@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout("/layout/boilerplate") %>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +8,10 @@
         .booking-cards {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px; /* Adjust the gap between cards */
+            gap: 20px; 
         }
         .card {
-            flex: 1 1 300px; /* Each card will have a fixed width of 300px */
+            flex: 1 1 300px; 
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
@@ -23,6 +23,23 @@
         .card img {
             max-width: 100%;
             height: auto;
+        }
+        .accept-button {
+            background-color: #4CAF50; 
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .accepted-button {
+            background-color: #f44336; 
         }
     </style>
 </head>
@@ -43,11 +60,20 @@
                     <div style="height: 250px;">
                         <img src="<%= booking.listingId.image.url %>" alt="Listing Image">
                     </div>
+                    <button class="accept-button" onclick="acceptBooking(this)">Accept</button>
                 <% } else { %>
                     <p>No associated listing found.</p>
                 <% } %>
             </div>
         <% }); %>
     </div>
+
+    <script>
+        function acceptBooking(button) {
+            button.classList.add('accepted-button');
+            button.textContent = 'Accepted';
+            button.disabled = true; 
+        }
+    </script>
 </body>
-</html>
+
