@@ -223,7 +223,7 @@ app.get('/bookingslist', async (req, res) => {
     const userBookings = await Booking.find({ ownerId: userId }).populate('listingId');
 
     //res.json(userBookings);
-       res.render('results', { userBookings: userBookings });
+    res.render('results', { userBookings: userBookings });
 
   } catch (error) {
     console.error('Error retrieving bookings:', error);

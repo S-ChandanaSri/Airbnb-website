@@ -3,31 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Owner Bookings</title>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 10px; /* Adjust the gap between cards */
+            padding: 10px;
+        }
         .card {
+            flex: 1 1 300px; /* Each card will have a fixed width of 300px */
             border: 1px solid #ccc;
             border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
+            overflow: hidden; /* Ensure image doesn't overflow card */
         }
-        .card p {
-            margin: 0;
+        .card img {
+            width: 100%; /* Make the image fill the container */
+            height: auto; /* Allow the height to adjust based on the aspect ratio */
+            object-fit: cover; /* Ensure the image covers the entire container */
+            border-radius: 5px 5px 0 0; /* Ensure rounded corners for top */
+        }
+        .card-content {
+            padding: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Owner Bookings</h1>
-    <ul>
-        <% ownerBookings.forEach((booking) => { %>
-            <li class="card">
-                <% if (booking.listingId) { %>
+    <div style="width: 100%;">
+        <h1>Owner Bookings</h1>
+
+    </div>
+    
+    <% ownerBookings.forEach((booking) => { %>
+        <% if (booking.listingId) { %>
+            <div class="card">
+                <img src="<%= booking.listingId.image.url %>" alt="Listing Image">
+                <div class="card-content">
                     <p>Listing ID: <%= booking.listingId._id %></p>
-                    <img src="<%= booking.listingId.image.url %>" alt="Listing Image">
-                <% }   %>
-               
-            </li>
-        <% }); %>
-    </ul>
+                </div>
+            </div>
+        <% } %>
+    <% }); %>
 </body>
 </html>

@@ -1,45 +1,53 @@
-<% layout("/layout/boilerplate") %> 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
+    <title>User Bookings</title>
     <style>
-        .room-details {
-    width: 20rem; 
-    border: 2px solid white;
-    padding: 2px 5px;
-    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.5);
-  }
-  a {
-    text-decoration: none;
-    color: black;
-    
-  }
+        .booking-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Adjust the gap between cards */
+        }
+        .card {
+            flex: 1 1 300px; /* Each card will have a fixed width of 300px */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .card p {
+            margin: 0;
+        }
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
     <h1>User Bookings</h1>
-    <div style="display: flex;gap: 30px;">
+    <div class="booking-cards">
         <% userBookings.forEach((booking) => { %>
-            <div class="card room-details" >
-                <img src="<%= booking.listingId.image.url %>" alt="Listing Image">
-                <div class="card-img-overlay"></div>
-                <div class="card-body">
-                    <p class="card-text">
-                        <b><%= booking.listingId.title %></b>
-
-                    </p>
-                </div>
-
-
+            <div class="card">
+                <p>Booking ID: <%= booking._id %></p>
+                <p>User ID: <%= booking.userId %></p>
+                <p>Owner ID: <%= booking.ownerId %></p>
+                <p>Date: <%= booking.date %></p>
+                <% if (booking.listingId) { %>
+                    <p>Title: <%= booking.listingId.title %></p>
+                    <p>Description: <%= booking.listingId.description %></p>
+                    <p>Price: <%= booking.listingId.price %></p>
+                    <p>Location: <%= booking.listingId.location %></p>
+                    <div style="height: 250px;">
+                        <img src="<%= booking.listingId.image.url %>" alt="Listing Image">
+                    </div>
+                <% } else { %>
+                    <p>No associated listing found.</p>
+                <% } %>
             </div>
-            
         <% }); %>
-
     </div>
-
-   
-        
-
 </body>
-
+</html>
