@@ -161,36 +161,46 @@ app.get("/listing", async (req, res) => {
   
 
   
-app.post('listings/search-listings', async (req, res) => {
-  const { location } = req.body;
-  
-  
-  try {
-    
-      const listings = await Listing.find({ location: location }).populate("owner");
-      
-      res.render("searchResults.ejs", { listings: listings });
-      
-  } catch (error) {
-      res.status(500).json({ message: 'Internal server error' });
-  }
+  app.post('/listings/search-listings', async (req, res) => {
+    const { location, minDate: minDateString, maxDate: maxDateString } = req.body;
+
+    try {
+        console.log('Received search request:', { location, minDate: minDateString, maxDate: maxDateString });
+
+        const minDate = new Date(minDateString);
+        const maxDate = new Date(maxDateString);
+
+        console.log('Converted dates:', { minDate, maxDate });
+
+        const listings = await Listing.find({ 
+            location,
+            minDate: { $lte: minDate }, 
+            maxDate: { $gte: maxDate } 
+        }).populate("owner");
+
+        console.log('Found listings:', listings);
+
+        res.render("searchResults.ejs", { listings });
+    } catch (error) {
+        console.error('Error searching listings:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 });
+
+
 app.post('/book', async (req, res) => {
   const { listingId } = req.body;
 
   try {
-    // Verify the listing and populate the 'owner' field
     const listing = await Listing.findById(listingId).populate('owner');
 
     if (!listing) {
       return res.status(404).send("Listing not found");
     }
 
-    // Extract owner details from the populated 'owner' field
     const owner = listing.owner;
     console.log("ss",owner)
 
-    // Create a new booking
     const booking = new Booking({
       listingId: listing._id,
       userId: req.user._id,
@@ -201,7 +211,6 @@ app.post('/book', async (req, res) => {
 
     const ownerBookings = await Booking.find({ ownerId: owner._id }).populate('listingId');
 
-    //res.json(ownerBookings)
     res.render("ownerBookings", { owner, ownerBookings });
 
   } catch (error) {
@@ -220,7 +229,6 @@ app.get('/bookingslist', async (req, res) => {
 
     const userBookings = await Booking.find({ ownerId: userId }).populate('listingId');
 
-    //res.json(userBookings);
     res.render('results', { userBookings: userBookings });
 
   } catch (error) {

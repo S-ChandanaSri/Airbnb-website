@@ -1,50 +1,65 @@
 <% layout("/layout/boilerplate") %>
 <div class="listing-parent">
-    <div class="row listing-container">
-        <div style="text-align: center;">
-            <b style="font-size: rem;"> <%= allChatt.title %> </b> <br>    
-        </div>
-    
-        <div class="card  show-card listing-card" style="background-color: white;">
-            <img src="<%= allChatt.image.url %>" class="card-img-top" alt="listing_image" >
-            <div class="card-body">
-                
+    <div class="row listing-container" style="padding: 0;">
+        <figure class="text-center">
+            <blockquote class="blockquote">
+                <p class="h2"><%= allChatt.title %></p>
+            </blockquote>
+            <figcaption class="blockquote-footer" style="margin-bottom: 0; text-align: end;">
+                Owned by <cite title="Source Title"><%= allChatt.owner.username %></cite>
+            </figcaption>
+          </figure>
+          
+        <div class="card" style="background-color: white; padding: 0; margin-bottom: 15px;">
+            <img src="<%= allChatt.image.url %>" class="card-img-top" alt="listing_image" style="margin: 0; border-radius: 0;" >
 
-                <p class="card-text">Owned by <i><%= allChatt.owner.username %></i></p>
+            <div class="card-body" style="padding: 15px 25px;">
 
-                <p class="card-text"><%= allChatt.description %></p>
+                <p class="card-text lead"><%= allChatt.description %></p>
             
-                <p class="card-text room-price">&#8377; <%= allChatt.price.toLocaleString("en-IN")%></p>
-                <p class="card-text room-location">Available<br> From: <%= allChatt.minDate %><br> To: <%= allChatt.maxDate %></p>
-                <p class="card-text room-location">Amenities:</p>
+                <p class="card-text room-price">&#8377; <%= allChatt.price.toLocaleString("en-IN")%> /-</p>
+                    <table class="table">
+                            <tr>
+                            <th scope="col" colspan="2" style="text-align: center; font-weight: 500;
+                            font-size: 1.2em;">
+                                Availability
+                            </th>
+                            </tr>
+                            <tr>
+                                <td>From: </td>
+                                <td style="text-align: end;"><%= allChatt.minDate.toLocaleString() %></td>
+                            </tr>
+                            <tr>
+                                <td>To: </td>
+                                <td style="text-align: end;"><%= allChatt.maxDate.toLocaleString() %></td>
+                            </tr>
+                    </table>
+                <p class="card-text room-location" style="margin-bottom: 0.3em;">Amenities:</p>
                 <ul class="list-unstyled">
                     <% allChatt.amenities.forEach(function(amenity) { %>
                         <li><%= amenity %></li>
                     <% }); %>
                 </ul>
                 
-                <p class="card-text room-location"><%= allChatt.location %></p>  
-                    <p class="card-text room-location"><%= allChatt.country %></p> 
-    
+                <p class="card-text room-location"><%= allChatt.location %>, <%= allChatt.country %></p>      
                     
             </div>
     
         </div>
+
+        <div class="btns">
     
-    </div>
+            <a href="/listings/<%=allChatt._id%>/edit" class="btn btn-dark action-btn">
+                Edit
+            </a>
+        
+            <form method="POST" action="/listings/<%=allChatt._id%>?_method=DELETE">
+                <button class="btn btn-dark action-btn">Delete</button>
+        
+            </form>
+            <hr /> 
+        </div>
     
-    
-    <div class="btns">
-    
-        <a href="/listings/<%=allChatt._id%>/edit" class="btn btn-dark action-btn">
-            Edit
-        </a>
-    
-        <form method="POST" action="/listings/<%=allChatt._id%>?_method=DELETE">
-            <button class="btn btn-dark action-btn">Delete</button>
-    
-        </form>
-        <hr /> 
     </div>
 
 </div>

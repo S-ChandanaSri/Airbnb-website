@@ -64,6 +64,95 @@
       gap: 10px;
       font-size: 1.3em;
     }
+
+    .listing-description {
+      overflow: hidden;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    }
+
+    .listings-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .list-item {
+      margin-bottom: 15px;
+      transition: transform 300ms;
+    }
+
+    .list-item:hover {
+      transform: scale(1.1);
+    }
+
+    .listing-price {
+      font-weight: 600;
+      font-size: 1.5em;
+       font-family: Open Sans, sans-serif;
+    }
+
+    .listing-location {
+      font-size: 1.2em;
+    font-weight: 500;
+    }
+
+    .places-list {
+      padding: 3em;
+      background-color: #fefcfb;
+      border-radius: 10px;
+      box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .places-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+     
+      }
+
+    .same-place {
+      position: relative;
+    }
+
+    .same-place.place::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      background-color: #034078;
+      transform: scaleX(0);
+      transition: transform 300ms ease-in;
+      transform-origin: left;
+    }
+
+    .same-place.place:hover::before {
+      transform: scalex(1);
+    }
+
+    .same-place.place {
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    .same-place.place:hover {
+      color: white;
+    }
+
+    .place {
+      background-color: rgba(255,255,255,0.7);
+    padding: 15px 50px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    font-weight: 300;
+    border: 2px solid;
+    }
  
 </style>
 
@@ -127,29 +216,53 @@
   
   
 
-<div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-3">
+<div class="listings-container">
             
   <% for(let listing of allListings) { %>
-      <a href="/listings/<%= listing._id%>" class="listing-link" >
-          <div class="card room-details">
-              <img src="<%= listing.image.url %>" class="card-img-top" alt="..." style="height:20rem">
-              <div class="card-img-overlay"></div>
+          <div class="card list-item" style="width: 18rem; padding: 0;">
+              <img src="<%= listing.image.url %>" class="card-img-top" alt="..." style="margin-top: 0; border-radius: 0; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.6));">
               <div class="card-body">
-                <p class="card-text">
-                  <b><%= listing.title %></b> <br/>
-                  &#8377; <%= listing.price %>
-                  
-                  <i class="tax-info"> &nbsp; &nbsp;+18% GST </i>
-                  <br/>
+                <h5 class="card-title"><%= listing.title %></h5>
+                <p class="card-text listing-description"><%=listing.description %></p>
+                <p class="card-text listing-location">
                   <%= listing.location %>
-              </p>
+                  </p>
+                <p class="card-text listing-price">
+                  &#8377; <%= listing.price %> /-
+                  <i class="tax-info"> &nbsp; &nbsp;+18% GST </i>
+                  <br/> </p>
+                  <a href="/listings/<%= listing._id%>" class="btn btn-primary" style="transform: translateX(240%); padding: 8px 12px;">View <i class="fa-solid fa-angle-right"></i></a>
               </div>
-            </div>
-      </a>
-     
+            </div>     
       <%}%>
 </div> 
 
+
+<div class="places-list">
+<p class="display-6" style="font-size: 2.2em;
+text-align: center;">Available in Places</p> <br />
+
+<div class="places-container">
+  <div class="same-place place">
+    Banglore, India
+  </div>
+  <div class="same-place place">
+    Hyderabad, India
+  </div>
+  <div class="same-place place">
+    Chennai, India
+  </div>
+  <div class="same-place place">
+    Goa, India
+  </div>
+  <div class="same-place place">
+    Kerela, India
+  </div>
+  <div class="same-place place">
+    Mumbai, India
+  </div>
+</div>
+</div>
 
 </body>
 
