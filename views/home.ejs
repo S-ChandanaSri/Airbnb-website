@@ -243,6 +243,12 @@
 text-align: center;">Available in Places</p> <br />
 
 <div class="places-container">
+  <% for (let location of locations) { %>
+    <div class="same-place place">
+      <%= location %>
+    </div>
+  <% } %>
+
   <div class="same-place place">
     Banglore, India
   </div>

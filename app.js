@@ -111,7 +111,9 @@ app.get("/", (req, res) => {
 app.get("/listing", async (req, res) => {
     try {
       const allListings = await Listing.find({});
-      res.render("home.ejs", { allListings });
+      const locations = [...new Set(allListings.map(listing => listing.location))]; 
+
+      res.render("home.ejs", { allListings, locations });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "An error occurred while fetching the listings" });
