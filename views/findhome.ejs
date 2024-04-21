@@ -19,6 +19,17 @@
                 </select>
                 <div class="invalid-feedback">Please select a gender</div>
             </div>
+            <div class="mb-3">
+                <label for="startDate" class="form-label">Start Date</label>
+                <input name="startDate" id="startDate" class="form-control" type="date" required>
+                <div class="invalid-feedback">Please select a start date</div>
+            </div>
+            <div class="mb-3">
+                <label for="endDate" class="form-label">End Date</label>
+                <input name="endDate" id="endDate" class="form-control" type="date" required>
+                <div class="invalid-feedback">Please select an end date</div>
+            </div>
+            
             <br>
             <div class="login-button-container">
                 <button id="submitBtn" type="submit" class="btn btn-primary">Find Rooms</button>
@@ -38,6 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         
         const location = document.getElementById('locationInput').value;
+        const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
 
         try {
             
@@ -48,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ location })
+                body: JSON.stringify({ location, startDate, endDate })
             });
 
             if (response.ok) {
