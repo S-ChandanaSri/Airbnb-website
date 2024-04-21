@@ -1,21 +1,32 @@
 <% layout("/layout/boilerplate") %>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">Login</h1>
+<div class="login-parent-container">
+     <div class="company-details-container">
+        <h1 class="display-3">Welcome to</h1>
+        <p class="display-5"><b><span>She</span><span style="color: #ef476f;">Share</span></b></p>
 
-    <div class="col-6 offset-3 netho">
-        <form action="/login" method="POST" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="username" class="form-label">username</label>
-                <input name="username" id="username" class="form-control" type="text" required>          
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">password</label>
-                <input name="password" id="password" class="form-control" type="text" required>
+        <figcaption class="display-6 blockquote-footer" style="color: white; text-align: center; font-size: 1.2em;">
+            <cite title="Source Title"> Your Home Away from Home </cite>
+        </figcaption>
+    </div>
+    <div class="row login-container">
+        <h1 class="col-6 login-title">Login to SheShare</h1>
 
-            </div>
-            <button class="btn btn-success">login</button>
-        </form>
+        <div class="netho login-user-input">
+            <form action="/login" method="POST" class="needs-validation" novalidate>
+                <div class="form-floating mb-3">
+                    <input name="username" id="username" class="form-control" type="text" placeholder="Username" required>    
+                    <label for="username" class="form-label">Username</label>      
+                </div>
+                <div class="form-floating mb-3">
+                    <input name="password" id="password" class="form-control" type="password" placeholder="Password" required>
+                    <label for="password" class="form-label">Password</label>
+                </div>
+                <div class="login-button-container">
+                    <button class="btn btn-success">Login</button>
+                </div>
+            </form>
 
+        </div>
     </div>
 </div>

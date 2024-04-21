@@ -178,14 +178,14 @@ body{
 }
 
 .f-info{
-    height:4rem;
     background-color: #ebebeb;
     display: flex;
     flex-wrap:wrap;
     justify-content: center;
     align-items: space-evenly;
     text-align: center;
-   
+    padding: 20px 0;
+    gap: 5px;
     bottom: 0;
     width: 100%;
 }

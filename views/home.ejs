@@ -56,6 +56,14 @@
         padding: 1rem;
         margin-left: 5rem;
     }
+
+    .tax-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 1.3em;
+    }
  
 </style>
 
@@ -111,9 +119,9 @@
 
   </div>
   <div class="tax-toggle">
-    <div class="form-check-reverse form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-        <label class="form-check-label" for="flexSwitchCheckDefault" style="color: wheat;">Display total after taxes</label>
+    <div class="form-check-reverse form-switch tax-container">
+      <label class="form-check-label" for="flexSwitchCheckDefault" style="color: wheat;">Display total after taxes</label>
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" style="cursor: pointer;">
       </div>
 </div>
   
@@ -155,4 +163,3 @@
       }
   })
 </script>
-

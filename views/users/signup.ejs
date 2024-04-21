@@ -1,27 +1,46 @@
 <% layout("/layout/boilerplate") %>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">Signup on wanderlast</h1>
+<div class="login-parent-container">
+    <div class="company-details-container">
+        <h1 class="display-3">Welcome to</h1>
+        <p class="display-5"><b><span>She</span><span style="color: #ef476f;">Share</span></b></p>
 
-    <div class="col-6 offset-3 metho">
-        <form action="/signup" method="POST" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="username" class="form-label">username</label>
-                <input name="username" id="username" class="form-control" type="text" required>
-                <div class="valid-feedback"> looks good</div>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">email</label>
-                <input name="email" id="email" class="form-control" type="text" required>
+        <figcaption class="display-6 blockquote-footer" style="color: white; text-align: center; font-size: 1.2em;">
+            <cite title="Source Title"> Your Home Away from Home </cite>
+        </figcaption>
+    </div>
+    <div class="row login-container">
+        <h1 class="col-6 login-title">Register on SheShare &#128515</h1>
 
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">password</label>
-                <input name="password" id="password" class="form-control" type="text" required>
+        <div class="metho login-user-input">
+            <form action="/signup" method="POST" class="needs-validation" novalidate>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                    <div class="form-floating">
+                        <input name="username" id="username" class="form-control" type="text" placeholder="Username"  aria-label="Username" aria-describedby="basic-addon1" required>
+                        <label for="username">Username</label>
+                    <div class="valid-feedback"> looks good</div>
+                </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="form-floating">
+                    <input name="email" id="email" class="form-control" type="text" placeholder="Your Email" required>
+                    <label for="email">Your Email</label>
+                </div>
+                <span class="input-group-text" id="basic-addon2">@example.com</span>
 
-            </div>
-            <button class="btn btn-success">Signup</button>
-        </form>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="form-floating">
+                        <input name="password" id="password" class="form-control" type="password" placeholder="Password" required>
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <div class="login-button-container">
+                    <button class="btn btn-success">Signup</button>
+                </div>
+            </form>
 
+        </div>
     </div>
 </div>
